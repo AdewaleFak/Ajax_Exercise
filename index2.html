@@ -1,0 +1,50 @@
+<h1>Offices in Countries </h1>
+<form action="" method="post">
+    <select id="country">
+
+    </select>
+    <input type="button" value="List Offices" id="button">
+</form>
+
+<div id="offices">
+
+</div>
+
+
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.getJSON('getCountry.php', function (data){
+            console.log(data);
+            var pro = "";
+            $.each(data, function(index, proobj){
+                //console.log(proobj);
+                pro += "<option value='" + proobj.country +  "'>"  + proobj.country +  "</option>";
+
+            });
+            console.log(pro);
+
+            $('#country').html(pro);
+            //document.getElementById('program').innerHTML = pro;
+
+        } );
+
+        //  document.getElementById('program').onchange
+        //$('#country').change(function () {
+        $('#button').click(function(){
+            selval = $('#country').val();
+            //console.log(selval);
+            $.getJSON('getOfficeInCountry.php', { country: selval}, function(data){
+                result = '';
+                $.each(data, function(index, value){
+                    result += "<p> <img src='" + value.photo + "' width='150' height='150' align='left'>"
+                        + "Office Code: " + value.officecode + "<br> Address: " + value.address
+                        + "<br>City: " + value.city + "<br>State: " + value.state + "<br>Country: " + value.country
+                        + "<br>Postal Code: " + value.postalcode + "<br>Phone: " + value.phone + "</p></br>";
+                });
+                $('#offices').html(result);
+            })
+        })
+    })
+</script>

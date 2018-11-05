@@ -1,0 +1,39 @@
+<h1>List Of Offices</h1>
+<div id="offices"></div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.getJSON('getOffices.php', function (data) {
+            console.log(data);
+            var pro = "";
+            $.each(data, function (index, proobj) {
+                //console.log(proobj);
+                pro += "<p> <img src='" + proobj.photo + "' width='150' height='150' align='left'>"
+                    + "Office Code: " + proobj.officecode + "<br> Address: " + proobj.address
+                    + "<br>City: " + proobj.city + "<br>State: " + proobj.state + "<br>Country: " + proobj.country
+                    + "<br>Postal Code: " + proobj.postalcode + "<br>Phone: " + proobj.phone + "</p></br>";
+
+            });
+            console.log(pro);
+
+            $('#offices').html(pro);
+            //document.getElementById('program').innerHTML = pro;
+
+        });
+    })
+/*
+        //  document.getElementById('program').onchange
+        $('#program').change(function(){
+            selval = $('#program').val();
+            //console.log(selval);
+            $.getJSON('getStudentInprogram.php', { prog: selval}, function(data){
+                result = '';
+                $.each(data, function(index, value){
+                    result += "<li>" + value.name + ": " +  value.email + "</li>";
+                });
+                $('#stupro').html(result);
+            })
+        })
+    }) */
+</script>
